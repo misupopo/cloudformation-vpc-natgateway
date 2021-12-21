@@ -1,0 +1,24 @@
+{
+  "name": "cloudformation-vpc-natgateway",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/misupopo/cloudformation-vpc-natgateway.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/misupopo/cloudformation-vpc-natgateway/issues"
+  },
+  "homepage": "https://github.com/misupopo/cloudformation-vpc-natgateway#readme",
+  "devDependencies": {
+    "aws-sdk": "^2.1047.0",
+    "prettier": "^2.5.1",
+    "yargs": "^17.3.0"
+  }
+}
