@@ -56,24 +56,24 @@ Parameters:
   HighlyAvailableNat:
     Type: String
     Description: Optional configuration for a highly available NAT Gateway setup. Default configuration is a single NAT Gateway in Subnet A. The highly available option will configure a NAT Gateway in each of the Subnets.
-    AllowedPattern: "^(true|false)$"
-    Default: "false"
+    AllowedPattern: '^(true|false)$'
+    Default: 'false'
     ConstraintDescription: must be true or false (case sensitive).
 
   EnableVpcFlowLogs:
     Type: String
     Description: Optional configuration for enabling VPC Flow Logs sent to CloudWatch Logs. Default configuration has no VPC Flow Logs enabled.
-    AllowedPattern: "^(true|false)$"
-    Default: "false"
+    AllowedPattern: '^(true|false)$'
+    Default: 'false'
     ConstraintDescription: must be true or false (case sensitive).
 
 # --------------------------------------------- #
 # Conditions
 # --------------------------------------------- #
 Conditions:
-  HighlyAvailable: !Equals [!Ref HighlyAvailableNat, "true"]
-  NotHighlyAvailable: !Equals [!Ref HighlyAvailableNat, "false"]
-  VpcFlowLogs: !Equals [!Ref EnableVpcFlowLogs, "true"]
+  HighlyAvailable: !Equals [!Ref HighlyAvailableNat, 'true']
+  NotHighlyAvailable: !Equals [!Ref HighlyAvailableNat, 'false']
+  VpcFlowLogs: !Equals [!Ref EnableVpcFlowLogs, 'true']
 
 # --------------------------------------------- #
 # Resources
@@ -131,13 +131,13 @@ Resources:
     Properties:
       VpcId: !Ref Vpc
       CidrBlock: !Ref PublicAZASubnetBlock
-      AvailabilityZone: !Select [0, !GetAZs ""]
+      AvailabilityZone: !Select [0, !GetAZs '']
       MapPublicIpOnLaunch: true
       Tags:
         - Key: Name
           Value: !Sub
             - ${ProjectName}-public-${AZ}
-            - { AZ: !Select [0, !GetAZs ""] }
+            - { AZ: !Select [0, !GetAZs ''] }
         - Key: Type
           Value: public
 
@@ -153,13 +153,13 @@ Resources:
     Properties:
       VpcId: !Ref Vpc
       CidrBlock: !Ref PublicAZBSubnetBlock
-      AvailabilityZone: !Select [1, !GetAZs ""]
+      AvailabilityZone: !Select [1, !GetAZs '']
       MapPublicIpOnLaunch: true
       Tags:
         - Key: Name
           Value: !Sub
             - ${ProjectName}-public-${AZ}
-            - { AZ: !Select [1, !GetAZs ""] }
+            - { AZ: !Select [1, !GetAZs ''] }
         - Key: Type
           Value: public
 
@@ -175,13 +175,13 @@ Resources:
     Properties:
       VpcId: !Ref Vpc
       CidrBlock: !Ref PublicAZCSubnetBlock
-      AvailabilityZone: !Select [2, !GetAZs ""]
+      AvailabilityZone: !Select [2, !GetAZs '']
       MapPublicIpOnLaunch: true
       Tags:
         - Key: Name
           Value: !Sub
             - ${ProjectName}-public-${AZ}
-            - { AZ: !Select [2, !GetAZs ""] }
+            - { AZ: !Select [2, !GetAZs ''] }
         - Key: Type
           Value: public
 
@@ -242,12 +242,12 @@ Resources:
     Properties:
       VpcId: !Ref Vpc
       CidrBlock: !Ref PrivateAZASubnetBlock
-      AvailabilityZone: !Select [0, !GetAZs ""]
+      AvailabilityZone: !Select [0, !GetAZs '']
       Tags:
         - Key: Name
           Value: !Sub
             - ${ProjectName}-private-${AZ}
-            - { AZ: !Select [0, !GetAZs ""] }
+            - { AZ: !Select [0, !GetAZs ''] }
         - Key: Type
           Value: private
 
@@ -259,7 +259,7 @@ Resources:
         - Key: Name
           Value: !Sub
             - ${ProjectName}-private-${AZ}
-            - { AZ: !Select [0, !GetAZs ""] }
+            - { AZ: !Select [0, !GetAZs ''] }
         - Key: Type
           Value: private
 
@@ -282,12 +282,12 @@ Resources:
     Properties:
       VpcId: !Ref Vpc
       CidrBlock: !Ref PrivateAZBSubnetBlock
-      AvailabilityZone: !Select [1, !GetAZs ""]
+      AvailabilityZone: !Select [1, !GetAZs '']
       Tags:
         - Key: Name
           Value: !Sub
             - ${ProjectName}-private-${AZ}
-            - { AZ: !Select [1, !GetAZs ""] }
+            - { AZ: !Select [1, !GetAZs ''] }
         - Key: Type
           Value: private
 
@@ -299,7 +299,7 @@ Resources:
         - Key: Name
           Value: !Sub
             - ${ProjectName}-private-${AZ}
-            - { AZ: !Select [1, !GetAZs ""] }
+            - { AZ: !Select [1, !GetAZs ''] }
         - Key: Type
           Value: private
 
@@ -339,12 +339,12 @@ Resources:
     Properties:
       VpcId: !Ref Vpc
       CidrBlock: !Ref PrivateAZCSubnetBlock
-      AvailabilityZone: !Select [2, !GetAZs ""]
+      AvailabilityZone: !Select [2, !GetAZs '']
       Tags:
         - Key: Name
           Value: !Sub
             - ${ProjectName}-private-${AZ}
-            - { AZ: !Select [2, !GetAZs ""] }
+            - { AZ: !Select [2, !GetAZs ''] }
         - Key: Type
           Value: private
 
@@ -356,7 +356,7 @@ Resources:
         - Key: Name
           Value: !Sub
             - ${ProjectName}-private-${AZ}
-            - { AZ: !Select [2, !GetAZs ""] }
+            - { AZ: !Select [2, !GetAZs ''] }
         - Key: Type
           Value: private
 
@@ -398,7 +398,7 @@ Resources:
     Type: AWS::Logs::LogGroup
     Condition: VpcFlowLogs
     Properties:
-      LogGroupName: !Sub "FlowLogs/${ProjectName}"
+      LogGroupName: !Sub 'FlowLogs/${ProjectName}'
       RetentionInDays: 7
 
   FlowLogsRole:
@@ -406,7 +406,7 @@ Resources:
     Condition: VpcFlowLogs
     Properties:
       AssumeRolePolicyDocument:
-        Version: "2012-10-17"
+        Version: '2012-10-17'
         Statement:
           - Effect: Allow
             Principal:
@@ -426,7 +426,7 @@ Resources:
                   - logs:PutLogEvents
                   - logs:DescribeLogGroups
                   - logs:DescribeLogStreams
-                Resource: "*"
+                Resource: '*'
 
   VpcFlowLogs:
     Type: AWS::EC2::FlowLog
@@ -448,14 +448,14 @@ Resources:
     Properties:
       GroupDescription: Security group
       SecurityGroupIngress:
-#        - CidrIp: 0.0.0.0/0
-#          FromPort: '443'
-#          IpProtocol: tcp
-#          ToPort: '443'
-#        - CidrIp: 0.0.0.0/0
-#          FromPort: '80'
-#          IpProtocol: tcp
-#          ToPort: '80'
+        # - CidrIp: 0.0.0.0/0
+        #   FromPort: '443'
+        #   IpProtocol: tcp
+        #   ToPort: '443'
+        # - CidrIp: 0.0.0.0/0
+        #   FromPort: '80'
+        #   IpProtocol: tcp
+        #   ToPort: '80'
         - CidrIp: 0.0.0.0/0
           FromPort: '0'
           ToPort: '65535'
@@ -472,64 +472,64 @@ Outputs:
     Description: VPC Id
     Value: !Ref Vpc
     Export:
-      Name: !Sub "${ProjectName}-vpc-id"
+      Name: !Sub '${ProjectName}-vpc-id'
 
   PublicRouteTableId:
     Description: Route Table for public subnets
     Value: !Ref PublicRouteTable
     Export:
-      Name: !Sub "${ProjectName}-public-rtb"
+      Name: !Sub '${ProjectName}-public-rtb'
 
   PublicAZASubnetId:
     Description: Availability Zone A public subnet Id
     Value: !Ref PublicAZASubnet
     Export:
-      Name: !Sub "${ProjectName}-public-az-a-subnet"
+      Name: !Sub '${ProjectName}-public-az-a-subnet'
 
   PublicAZBSubnetId:
     Description: Availability Zone B public subnet Id
     Value: !Ref PublicAZBSubnet
     Export:
-      Name: !Sub "${ProjectName}-public-az-b-subnet"
+      Name: !Sub '${ProjectName}-public-az-b-subnet'
 
   PublicAZCSubnetId:
     Description: Availability Zone C public subnet Id
     Value: !Ref PublicAZCSubnet
     Export:
-      Name: !Sub "${ProjectName}-public-az-c-subnet"
+      Name: !Sub '${ProjectName}-public-az-c-subnet'
 
   PrivateAZASubnetId:
     Description: Availability Zone A private subnet Id
     Value: !Ref PrivateAZASubnet
     Export:
-      Name: !Sub "${ProjectName}-private-az-a-subnet"
+      Name: !Sub '${ProjectName}-private-az-a-subnet'
 
   PrivateAZBSubnetId:
     Description: Availability Zone B private subnet Id
     Value: !Ref PrivateAZBSubnet
     Export:
-      Name: !Sub "${ProjectName}-private-az-b-subnet"
+      Name: !Sub '${ProjectName}-private-az-b-subnet'
 
   PrivateAZCSubnetId:
     Description: Availability Zone C private subnet Id
     Value: !Ref PrivateAZCSubnet
     Export:
-      Name: !Sub "${ProjectName}-private-az-c-subnet"
+      Name: !Sub '${ProjectName}-private-az-c-subnet'
 
   PrivateAZARouteTableId:
     Description: Route table for private subnets in AZ A
     Value: !Ref PrivateAZARouteTable
     Export:
-      Name: !Sub "${ProjectName}-private-az-a-rtb"
+      Name: !Sub '${ProjectName}-private-az-a-rtb'
 
   PrivateAZBRouteTableId:
     Description: Route table for private subnets in AZ B
     Value: !Ref PrivateAZBRouteTable
     Export:
-      Name: !Sub "${ProjectName}-private-az-b-rtb"
+      Name: !Sub '${ProjectName}-private-az-b-rtb'
 
   PrivateAZCRouteTableId:
     Description: Route table for private subnets in AZ C
     Value: !Ref PrivateAZCRouteTable
     Export:
-      Name: !Sub "${ProjectName}-private-az-c-rtb"
+      Name: !Sub '${ProjectName}-private-az-c-rtb'
