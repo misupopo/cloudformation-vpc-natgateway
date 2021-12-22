@@ -31,7 +31,7 @@ test:
 # jqを試してみたがMakefileのコマンドと組み合わせてparameterを渡そうとしたが難しいのjsファイル（deploy.js）で実行する
 # Environmentは与えければdevがdefault
 deploy:
-	cd scripts/cloudformation && node deploy.js -t $(target) -e $(Environment)
+	cd scripts/cloudformation && npx ts-node deploy.ts -t $(target) -e $(Environment)
 
 # parameter-overridesが存在する場合はdeploy-with-paramsを実行
 deploy-with-params:
