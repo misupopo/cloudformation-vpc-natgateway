@@ -1,18 +1,13 @@
-# todo あとでcommon.jsonのProjectNameの値と共通で管理できるようにしたい（二重管理をやめたい
-stackName := example
 # .envファイルを読み込み
 # bucketNameなどの引数を入力するのが毎回面倒なので.envから参照する
 include .env
 environmentVariables:=$(shell sed -ne 's/ *\#.*$$//; /./ s/=.*$$// p' .env )
 
+# スタック名
+stackName := $(shell jq -r .ProjectName parameters/$(Environment)/common.json)
+
 ifeq ($(target), )
 	@echo "you must add argument target"
-	@exit 1
-endif
-
-# スタックを固定するためstackNameはMakefileで定義された物でなければならない
-ifneq ($(stackName), example)
-	@echo "stackName must be defined variable in Makefile"
 	@exit 1
 endif
 
@@ -27,8 +22,6 @@ test:
 ####### deploy #######
 
 # stackNameの引数はMakefile内に定義してあるので不要
-# jq -r 'keys[] as $k | "\($k)=\(.[$k])"' parameters/sqs.json
-# jqを試してみたがMakefileのコマンドと組み合わせてparameterを渡そうとしたが難しいのjsファイル（deploy.js）で実行する
 # Environmentは与えければdevがdefault
 deploy:
 	cd scripts/cloudformation && npx ts-node deploy.ts -t $(target) -e $(Environment)
