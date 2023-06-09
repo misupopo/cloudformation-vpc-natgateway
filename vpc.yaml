@@ -340,6 +340,7 @@ Resources:
   # --------------------------------------------- #
   SecurityGroup:
     Properties:
+      GroupName: !Sub ${ProjectName}-security-group
       GroupDescription: Security group
       SecurityGroupIngress:
         # - CidrIp: 0.0.0.0/0

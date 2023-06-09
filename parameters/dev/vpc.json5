@@ -1,5 +1,5 @@
 {
-  "StackName": "vpc",
+  "StackName": "example-vpc",
   "VpcCidrParam": "10.0.0.0/16",
   "PrivateAZASubnetBlock": "10.0.1.0/24",
   "PublicAZASubnetBlock": "10.0.241.0/24",
